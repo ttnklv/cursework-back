@@ -12,7 +12,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 public class CurseworkPipApplication {
 
     public static void main(String[] args) {
-     //  SpringApplication.run(CurseworkPipApplication.class, args);
+   SpringApplication.run(CurseworkPipApplication.class, args);
 
 //        ApiContextInitializer.init();
 //        TelegramBotsApi tApi = new TelegramBotsApi();
@@ -24,14 +24,14 @@ public class CurseworkPipApplication {
 //            g.printStackTrace();
 //        }
 
-        ApiContextInitializer.init();
-        ConfigurableApplicationContext ctx = SpringApplication.run(CurseworkPipApplication.class, args);
-        TelegramBotsApi tApi = new TelegramBotsApi();
-        try {
-            tApi.registerBot(ctx.getBean(Bot.class));
-        } catch (TelegramApiRequestException e) {
-//            logger.error("Error: " + Arrays.toString(e.getStackTrace()));
-            e.printStackTrace();
-        }
+//        ApiContextInitializer.init();
+//        ConfigurableApplicationContext ctx = SpringApplication.run(CurseworkPipApplication.class, args);
+//        TelegramBotsApi tApi = new TelegramBotsApi();
+//        try {
+//            tApi.registerBot(ctx.getBean(Bot.class));
+//        } catch (TelegramApiRequestException e) {
+////            logger.error("Error: " + Arrays.toString(e.getStackTrace()));
+//            e.printStackTrace();
+//        }
     }
 }

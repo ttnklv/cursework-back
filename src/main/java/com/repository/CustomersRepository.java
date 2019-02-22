@@ -66,6 +66,8 @@ public interface CustomersRepository extends JpaRepository<CustomersEntity, Long
 
     CustomersEntity findById(int id_user);
 
+    @Query(value = "select r from CustomersEntity r where r.login = :log")
+    CustomersEntity findByLogin(@Param("log") String log);
 
 
 

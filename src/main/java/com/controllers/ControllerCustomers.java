@@ -1,13 +1,14 @@
 package com.controllers;
 
+import com.database.CustomersEntity;
 import com.javaMail.EmailClient;
 import com.service.CustomersService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.sql.Date;
@@ -131,6 +132,17 @@ public class ControllerCustomers {
             e.printStackTrace();
         }
         return "connected";
+    }
+
+    private static CustomersEntity customer = null;
+    private static CustomersEntity customerDemo = null;
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity auth(@RequestParam("username") String username,
+                               @RequestParam("password") String password) {
+        customerDemo = customersService.findByLog(username);
+        if (customersService.aunt(username, password)) return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
 

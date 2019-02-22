@@ -153,6 +153,18 @@ private final ScoreStudioRepository scoreStudioRepository;
 
     }
 
+    public boolean aunt(String log, String pass){
+        if (customersRepository.findLogPas(log, pass) == null) return false;
+        return true;
+    }
+
+
+    public CustomersEntity findByLog(String log){
+        return customersRepository.findByLogin(log);
+    }
+
+    public CustomersEntity findById(int id){return  customersRepository.findById(id);}
+
     public boolean auntification(String log, String pass){
         if (customersRepository.findLogPas(log, pass) == null) return false;
         return true;
