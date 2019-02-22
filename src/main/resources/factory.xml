@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+      <mapping class="com.database.AdminEntity"/>
+      <!--<mapping resource="com/database/AdminEntity.hbm.xml"/>-->
+    <mapping resource="hibernate.cfg.xml"/>
+      <mapping class="com.database.ActorEntity"/>
+      <mapping class="com.database.AnalystEntity"/>
+      <mapping class="com.database.CastActorEntity"/>
+      <mapping class="com.database.ChatEntity"/>
+      <mapping class="com.database.ChatUserEntity"/>
+      <mapping class="com.database.ComplaintEntity"/>
+      <mapping class="com.database.CustomersEntity"/>
+      <mapping class="com.database.DialogueEntity"/>
+      <mapping class="com.database.FilmEntity"/>
+      <mapping class="com.database.FilmTagEntity"/>
+      <mapping class="com.database.FollowerActorEntity"/>
+      <mapping class="com.database.FollowerAnalystEntity"/>
+      <mapping class="com.database.FollowerStudioEntity"/>
+      <mapping class="com.database.GalleryActorEntity"/>
+      <mapping class="com.database.GalleryFilmEntity"/>
+      <mapping class="com.database.GalleryStudioEntity"/>
+      <mapping class="com.database.GenreEntity"/>
+      <mapping class="com.database.GenreFilmEntity"/>
+      <mapping class="com.database.MessageEntity"/>
+      <mapping class="com.database.PostEntity"/>
+      <mapping class="com.database.PostTagEntity"/>
+      <mapping class="com.database.RevTagEntity"/>
+      <mapping class="com.database.ReviewEntity"/>
+      <mapping class="com.database.ScoreActorEntity"/>
+      <mapping class="com.database.ScoreAnalystEntity"/>
+      <mapping class="com.database.ScoreFilmEntity"/>
+      <mapping class="com.database.ScoreStudioEntity"/>
+      <mapping class="com.database.ScriptEntity"/>
+      <mapping class="com.database.StudioEntity"/>
+      <mapping class="com.database.SystemEntity"/>
+      <mapping class="com.database.TagEntity"/>
+      <mapping class="com.database.TechSupportEntity"/>
+      <mapping class="com.database.TransactionEntity"/>
+      <mapping class="com.database.UserUsEntity"/>
+      <mapping class="com.database.VerificationEntity"/>
+      <mapping class="com.database.VotesEntity"/>
+      <mapping class="com.database.VotesTagEntity"/>
+      <mapping class="com.database.VotesUserEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

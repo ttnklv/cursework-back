@@ -1,0 +1,87 @@
+<html >
+<head>
+    <meta charset="utf-8">
+    <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+</head>
+<body>
+<a href="javascript:VK.Auth.login(authInfo);">VK</a>
+
+<!--<a href="http://oauth.vk.com/authorize?client_id=6843083&redirect_uri=http://localhost:8000&scope=friends,-->
+<!--email&response_type=code"-->
+<!--title="????? ????? ?????????" onclick="checkUser()">????? ????? ?????????</a>-->
+<!--http://oauth.vk.com/authorize?client_id={client_id}&redirect_uri=mysite.com/vklogin&response_type=code-->
+<script language="javascript">
+
+    function authInfo(response) {
+        if (response.session) {
+            let href = response.session.user.href;
+            alert('user: ' + href);
+            window.location.href = "/registrationVK"
+                + "?first_name=" + response.session.user.first_name
+                + "&last_name=" + response.session.user.last_name
+                + "&herf=" + href
+                + "&mid=" + response.session.mid;
+        } else {
+            alert('not auth');
+        }
+    }
+
+    let access_token;
+    let email;
+
+    //
+    function checkUser() {
+        if (getUrlVars()["access_token"] != null) {
+            access_token = getUrlVars()["access_token"];
+            email = getUrlVars()["email"];
+            //alert(access_token + email);
+            getUserInfo(getUrlVars()["access_token"]);
+        }
+
+    }
+
+    function getUserInfo(access_token) {
+        let str = 'https://oauth.vk.com/access_token?client_id={client_id}&client_secret={secret_key}&' +
+            'code=' + access_token;
+    }
+
+
+    function getUrlVars() {
+        let vars = {};
+        let parts = window.location.href.replace(/[#&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+
+    // let params = new URLSearchParams();
+    // params.append('token', 'a b c');
+    //
+    // let baseApiUrl = 'https://api-metrika.yandex.ru/stat/v1/data';
+    // console.log(baseApiUrl + '?' + params.toString());
+
+</script>
+
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?160"></script>
+<script type="text/javascript">
+    VK.init(
+        {apiId: 6843083}
+    );
+
+    // VK.init(function () {
+    //         VK.api("users.get", {user_ids: "1"}, function (data) {
+    //             alert(data.response.id);
+    //         })
+    //     }
+    // );
+
+</script>
+
+<!-- VK Widget -->
+<div id="vk_auth"></div>
+<!--<script type="text/javascript">-->
+<!--VK.Widgets.Auth("vk_auth", {"authUrl": "/dev/Login"});-->
+<!--</script>-->
+</body>
+</html>
