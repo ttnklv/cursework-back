@@ -15,6 +15,7 @@ public class CustomersEntity {
     private String profileImageUrl;
     private String emailHash;
     private String password;
+    private String state;
     private String mobNumber;
     private boolean reputation;
     private Date lastAccess;
@@ -61,6 +62,16 @@ public class CustomersEntity {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    @Basic
+    @Column(name = "state")
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Basic

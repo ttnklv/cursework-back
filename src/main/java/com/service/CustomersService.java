@@ -4,6 +4,7 @@ import com.database.*;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.sql.Date;
 import java.util.HashSet;
 
@@ -11,9 +12,10 @@ import java.util.HashSet;
 public class CustomersService {
     private final CustomersRepository customersRepository;
     private final ScoreFilmRepository scoreFilmRepository;
-    private  final ScoreActorRepository scoreActorRepository;
-private final ScoreAnalystRepository scoreAnalystRepository;
-private final ScoreStudioRepository scoreStudioRepository;
+    private final ScoreActorRepository scoreActorRepository;
+    private final ScoreAnalystRepository scoreAnalystRepository;
+    private final ScoreStudioRepository scoreStudioRepository;
+
     @Autowired
     public CustomersService(CustomersRepository customersRepository, ScoreFilmRepository scoreFilmRepository, ScoreActorRepository scoreActorRepository, ScoreAnalystRepository scoreAnalystRepository, ScoreStudioRepository scoreStudioRepository) {
         this.customersRepository = customersRepository;
@@ -37,7 +39,7 @@ private final ScoreStudioRepository scoreStudioRepository;
     public String updateLevelAccess() {
         try {
             customersRepository.findCustomersEntityById(1).setLevelAccess(2);
-            customersRepository.updateUserSetLevelAccessForId(2,1);
+            customersRepository.updateUserSetLevelAccessForId(2, 1);
             return "Level_Access was changed.";
         } catch (NullPointerException ex) {
             return null;
@@ -75,10 +77,10 @@ private final ScoreStudioRepository scoreStudioRepository;
     }
 
     public String updateImg() {
-        byte[] img = {1,2,3,4,5,6};
+        byte[] img = {1, 2, 3, 4, 5, 6};
         try {
             customersRepository.findCustomersEntityById(1).setImg(img);
-            customersRepository.updateUserSetIMGForId(img,1);
+            customersRepository.updateUserSetIMGForId(img, 1);
             return "IMG was changed.";
         } catch (NullPointerException ex) {
             return null;
@@ -103,7 +105,7 @@ private final ScoreStudioRepository scoreStudioRepository;
         }
     }
 
-    public void scoreForFilm(int idCust, int idFilm, float score){
+    public void scoreForFilm(int idCust, int idFilm, float score) {
         ScoreFilmEntity sf = new ScoreFilmEntity();
         sf.setIdFilm(idFilm);
         sf.setIdUserUs(idCust);
@@ -111,15 +113,15 @@ private final ScoreStudioRepository scoreStudioRepository;
         scoreFilmRepository.save(sf);
     }
 
-    public void scoreForAnalyst(int idCust, int idAnalyst, float score){
-        ScoreAnalystEntity sa =  new ScoreAnalystEntity();
+    public void scoreForAnalyst(int idCust, int idAnalyst, float score) {
+        ScoreAnalystEntity sa = new ScoreAnalystEntity();
         sa.setIdAnalyst(idAnalyst);
         sa.setIdUserUs(idCust);
         sa.setScore(score);
         scoreAnalystRepository.save(sa);
     }
 
-    public void scoreForActor(int idCust, int idActor, float score){
+    public void scoreForActor(int idCust, int idActor, float score) {
         ScoreActorEntity sa = new ScoreActorEntity();
         sa.setIdActor(idActor);
         sa.setIdUserUs(idCust);
@@ -127,7 +129,7 @@ private final ScoreStudioRepository scoreStudioRepository;
         scoreActorRepository.save(sa);
     }
 
-    public void scoreForStudio(int idCust, int idStudio, float score){
+    public void scoreForStudio(int idCust, int idStudio, float score) {
         ScoreStudioEntity ss = new ScoreStudioEntity();
         ss.setIdStudio(idStudio);
         ss.setIdUserUs(idCust);
@@ -135,9 +137,9 @@ private final ScoreStudioRepository scoreStudioRepository;
         scoreStudioRepository.save(ss);
     }
 
-    public void insertNewCustomer(String name,String login, String
-                                  pIurl, String email, String pass, String mobile, Boolean rep,
-                                  Date date, int level){
+    public void insertNewCustomer(String name, String login, String
+            pIurl, String email, String pass, String mobile, Boolean rep,
+                                  Date date, int level) {
 
         CustomersEntity newCust = new CustomersEntity();
         newCust.setName(name);
@@ -153,7 +155,7 @@ private final ScoreStudioRepository scoreStudioRepository;
 
     }
 
-    public boolean auntification(String log, String pass){
+    public boolean auntification(String log, String pass) {
         if (customersRepository.findLogPas(log, pass) == null) return false;
         return true;
     }
@@ -175,12 +177,23 @@ private final ScoreStudioRepository scoreStudioRepository;
             customer.setLastAccess(new Date(date.getTime()));
             customer.setPassword(mid);
             customer.setReputation(true);
-            if(customersRepository.findByLog(mid) == null) customersRepository.save(customer);
+            if (customersRepository.findByLog(mid) == null) customersRepository.save(customer);
             else System.out.println("отловлен повторяющийся акк");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    //TODO: добавить к Маше 17.02.2019
+    public void setStateToUser(int id_user, int id_film) {
+        String answer = "{\"id_film\":" + id_film + "}";
+        customersRepository.updateUserSetState(answer, id_user);
+    }
+
+    //TODO: добавить к Маше 17.02.2019
+    public String getUserState(int id_user) {
+        return customersRepository.findCustomersEntityById(id_user).getState();
     }
 
 }

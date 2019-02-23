@@ -13,11 +13,6 @@ import java.util.List;
 
 public interface CustomersRepository extends JpaRepository<CustomersEntity, Long> {
 
-    @Query(value = "select r.id from CustomersEntity r")
-    HashSet<Integer> allId();
-
-
-
     CustomersEntity findCustomersEntityById(int id);
 
     @Modifying
@@ -66,7 +61,10 @@ public interface CustomersRepository extends JpaRepository<CustomersEntity, Long
 
     CustomersEntity findById(int id_user);
 
-
+    @Modifying
+    @org.springframework.transaction.annotation.Transactional
+    @Query(value = "update CustomersEntity u set u.state = :state where u.id = :id")
+    void updateUserSetState(@Param("state") String state, @Param("id") Integer id);
 
 
 }

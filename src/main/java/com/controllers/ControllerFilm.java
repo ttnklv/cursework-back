@@ -1,4 +1,5 @@
 package com.controllers;
+
 import com.service.ChatService;
 import com.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +20,23 @@ public class ControllerFilm {
 
     @GetMapping("/filmsSortByGenre")
     String filmOnGenre() {
-       String a = filmService.filmsSortByGenre(1).get(0);
-       if (a != null) return a;
-       else return "bad sorting films";
+        String a = filmService.filmsSortByGenre(1).get(0);
+        if (a != null) return a;
+        else return "bad sorting films";
     }
 
-    @GetMapping("/ilmInfo")
-    String[] filmInfo(){
+    @GetMapping("/filmInfo")
+    String[] filmInfo() {
         return filmService.filmInfo(1);
     }
 
     @GetMapping("/newsFeed")
-    String newsFeedDate(){
-        if( filmService.filmDate() != null) return filmService.filmDate();
+    String newsFeedDate() {
+        if (filmService.filmDate() != null) return filmService.filmDate();
         else return "no films for feed";
 
 
     }
-
-//    @GetMapping("/tryToGenre")
-//    String  filmGenre(){
-//        return    filmService.selectGenre("ужасы");
-//
-//    }
 
     @GetMapping("/getFeedRecommendationForUser")
     String getFeedRecommendationForUser() {

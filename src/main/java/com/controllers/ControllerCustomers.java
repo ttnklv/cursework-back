@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,52 +71,6 @@ public class ControllerCustomers {
         else return "Empty request";
     }
 
-
-    @GetMapping("/updateImg")
-    String changeImg() {
-        if (customersService.updateImg() != null)
-            return customersService.updateImg();
-        else return "Empty request";
-    }
-
-    //TODO: регистрация пользователя: 1) обычная
-    @GetMapping(value = "/registrationForVK", produces = "text/html;charset=UTF-8")
-    String registrationForVK() {
-        return "index.html";
-    }
-
-    //TODO: регистрация пользователя: 1) обычная
-    @GetMapping("/registrationForGMAIL")
-    String registration() {
-        return "gmail.html";
-    }
-
-
-    //TODO: регистрация пользователя: 2) через ВК
-    @GetMapping(value = "/registrationVK", produces = "text/html;charset=UTF-8")
-    String registrationVK(@RequestParam("first_name") String first_name,
-                          @RequestParam("last_name") String last_name,
-                          @RequestParam("herf") String href,
-                          @RequestParam("mid") String mid) {
-
-            customersService.registrationWithSocialNetwork(StringEscapeUtils.unescapeHtml(first_name),
-                    StringEscapeUtils.unescapeHtml(last_name),
-                    href, mid);
-
-
-        return "Ok!";
-    }
-
-    //TODO: регистрация пользователя: 3) через GMail
-    @GetMapping("/registrationGMAIL")
-    String registrationGMAIL(@RequestParam("first_name") String first_name,
-                             @RequestParam("last_name") String last_name,
-                             @RequestParam("email") String email) {
-        customersService.registrationWithSocialNetwork(first_name, last_name,
-                email, email);
-        return "Ok!";
-    }
-
     @GetMapping("/newCust")
     String newCust() {
         Date d = new Date(2018, 11, 12);
@@ -133,5 +88,63 @@ public class ControllerCustomers {
         return "connected";
     }
 
+
+    @GetMapping("/updateImg")
+    String changeImg() {
+        if (customersService.updateImg() != null)
+            return customersService.updateImg();
+        else return "Empty request";
+    }
+
+    //TODO: регистрация пользователя: 1) через VK (необходима для демонстрации работы приложения)
+    @GetMapping(value = "/registrationForVK", produces = "text/html;charset=UTF-8")
+    String registrationForVK() {
+        return "index.html";
+    }
+
+    //TODO: регистрация пользователя: 2) через GMail
+    @GetMapping("/registrationForGMAIL")
+    String registration() {
+        return "gmail.html";
+    }
+
+
+    //регистрация пользователя: через ВК
+    @GetMapping(value = "/registrationVK", produces = "text/html;charset=UTF-8")
+    String registrationVK(@RequestParam("first_name") String first_name,
+                          @RequestParam("last_name") String last_name,
+                          @RequestParam("herf") String href,
+                          @RequestParam("mid") String mid) {
+
+            customersService.registrationWithSocialNetwork(StringEscapeUtils.unescapeHtml(first_name),
+                    StringEscapeUtils.unescapeHtml(last_name),
+                    href, mid);
+
+
+        return "Ok!";
+    }
+
+    //регистрация пользователя: через GMail
+    @GetMapping("/registrationGMAIL")
+    String registrationGMAIL(@RequestParam("first_name") String first_name,
+                             @RequestParam("last_name") String last_name,
+                             @RequestParam("email") String email) {
+        customersService.registrationWithSocialNetwork(first_name, last_name,
+                email, email);
+        return "Ok!";
+    }
+
+    //TODO: добавить к Маше
+    @RequestMapping(value = "getState")
+    public String getState(@RequestParam("id_user") int id_user){
+        return customersService.getUserState(id_user);
+    }
+
+    //TODO: добавить к Маше
+    @RequestMapping(value = "setState")
+    public void setState(@RequestParam("id_user") int id_user,
+                         @RequestParam("id_film") int id_film){
+        customersService.setStateToUser(id_user, id_film);
+    }
 
 }
