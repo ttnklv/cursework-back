@@ -14,6 +14,7 @@ public class CurseworkPipApplication {
     public static void main(String[] args) {
        SpringApplication.run(CurseworkPipApplication.class, args);
 
+
 //        ApiContextInitializer.init();
 //        TelegramBotsApi tApi = new TelegramBotsApi();
 //        //ргеистрация бота

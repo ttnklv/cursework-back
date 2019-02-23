@@ -75,7 +75,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "profile_image_url", nullable = true, length = -1)
+    @Column(name = "img", nullable = true, length = -1)
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -85,7 +85,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "email_hash", nullable = false, length = -1)
+    @Column(name = "email", nullable = false, length = -1)
     public String getEmailHash() {
         return emailHash;
     }
