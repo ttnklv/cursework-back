@@ -2,8 +2,9 @@ package com.service;
 
 import com.database.PostEntity;
 import com.database.PostTagEntity;
-import com.repository.CustomersRepository;
+import com.database.PostTagEntityPK;
 import com.repository.PostRepository;
+import com.repository.PostTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,12 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostRepository postRepository;
-
+private final PostTagRepository postTagRepository;
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, PostTagRepository postTagRepository) {
         this.postRepository = postRepository;
 
+        this.postTagRepository = postTagRepository;
     }
 
     public String getAllPosts() {
@@ -30,9 +32,9 @@ public class PostService {
         }
     }
 
-    public void addNewPost(byte[] b, Date date, String body, Integer userUsOwnerId, Collection<PostTagEntity> postTags) {
+    public void addNewPost(String img, Date date, String body, Integer userUsOwnerId, Collection<PostTagEntity> postTags) {
         PostEntity pe = new PostEntity();
-        pe.setImg(b);
+        pe.setImg(img);
         pe.setCreateDate(date);
         pe.setBody(body);
         pe.setUserUsOwnerId(userUsOwnerId);
@@ -40,18 +42,13 @@ public class PostService {
         postRepository.save(pe);
     }
 
-    //TODO удалить пост / редактировать пост
 
-//    public void deletePost(long id){
-//        postRepository.deleteById(id);
-//    }
-//
-//    //вроде можно было только тело отредачить хз
-//    public void updatePost(int id, String body){
-//        java.util.Date d = new java.util.Date();
-//        Date date = new Date(d.getYear(), d.getMonth(), d.getDay());
-//        postRepository.updatePostBody(body, id);
-//        postRepository.updatePostDate(date, id);
-//    }
+    public void addTagForPost(int idPost, int idTag){
+        PostTagEntity pt = new PostTagEntity();
+        pt.setIdPost(idPost);
+        pt.setIdTag(idTag);
+        postTagRepository.save(pt);
+    }
+
 
 }

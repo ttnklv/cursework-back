@@ -280,4 +280,5 @@ public class CustomersEntity {
     public void setVerifications(Collection<VerificationEntity> verificationsById) {
         this.verifications = verificationsById;
     }
+
 }

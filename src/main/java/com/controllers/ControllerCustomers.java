@@ -22,6 +22,11 @@ public class ControllerCustomers {
         this.customersService = customersService;
     }
 
+
+    @GetMapping("/")
+    String hello(){
+        return "hello";
+    }
     @GetMapping("/selectForPas")
     String selectPas() {
         if (customersService.returnHashPas() != null)
