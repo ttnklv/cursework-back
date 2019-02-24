@@ -12,7 +12,7 @@ public class PostTagEntity {
     private TagEntity tags;
 
     @Id
-    @Column(name = "id_post", nullable = false, insertable = false, updatable = false)
+    @Column(name = "id_post", nullable = false)
     public int getIdPost() {
         return idPost;
     }
@@ -21,8 +21,9 @@ public class PostTagEntity {
         this.idPost = idPost;
     }
 
+
     @Id
-    @Column(name = "id_tag", nullable = false, insertable = false, updatable = false)
+    @Column(name = "id_tag", nullable = false)
     public int getIdTag() {
         return idTag;
     }

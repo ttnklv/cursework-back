@@ -10,9 +10,7 @@ public class ComplaintEntity {
     private String body;
     private String answer;
     private CustomersEntity customers;
-
-    //добавила хз зачем добле
-//    private int checker;
+    private boolean checker;
 
     @Basic
     @Column(name = "id_customers", nullable = true, insertable = false, updatable = false)
@@ -43,7 +41,6 @@ public class ComplaintEntity {
     public void setBody(String body) {
         this.body = body;
     }
-
 
 
     @Basic
@@ -100,5 +97,15 @@ public class ComplaintEntity {
 
     public void setCustomers(CustomersEntity customersByIdCustomers) {
         this.customers = customersByIdCustomers;
+    }
+
+    @Basic
+    @Column(name = "checker", nullable = false)
+    public boolean getChecker() {
+        return checker;
+    }
+
+    public void setChecker(boolean checker) {
+        this.checker = checker;
     }
 }

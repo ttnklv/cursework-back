@@ -1,14 +1,16 @@
 package com.controllers;
 
+
+import com.database.CustomersEntity;
 import com.javaMail.EmailClient;
 import com.service.CustomersService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.sql.Date;
@@ -22,6 +24,12 @@ public class ControllerCustomers {
         this.customersService = customersService;
     }
 
+
+
+    @GetMapping("/")
+    String hello(){
+        return "hello";
+    }
     @GetMapping("/selectForPas")
     String selectPas() {
         if (customersService.returnHashPas() != null)
@@ -71,23 +79,6 @@ public class ControllerCustomers {
         else return "Empty request";
     }
 
-    @GetMapping("/newCust")
-    String newCust() {
-        Date d = new Date(2018, 11, 12);
-        customersService.insertNewCustomer("masha",
-                "DFff", "werftrds", "fghj@ff",
-                "wedfrgtyhj", "234567", true, d, 1);
-
-        try {
-            EmailClient.sendAsHtml("dashkova_m@inbox.ru",
-                    "MoviesMT",
-                    "<h2>Welcome to our site:)</h2><p>You are registered in MoviesMT!</p>");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-        return "connected";
-    }
-
 
     @GetMapping("/updateImg")
     String changeImg() {
@@ -110,6 +101,7 @@ public class ControllerCustomers {
 
 
     //регистрация пользователя: через ВК
+
     @GetMapping(value = "/registrationVK", produces = "text/html;charset=UTF-8")
     String registrationVK(@RequestParam("first_name") String first_name,
                           @RequestParam("last_name") String last_name,
@@ -121,10 +113,12 @@ public class ControllerCustomers {
                 href, mid);
 
 
+
         return "Ok!";
     }
 
     //регистрация пользователя: через GMail
+
     @GetMapping("/registrationGMAIL")
     String registrationGMAIL(@RequestParam("first_name") String first_name,
                              @RequestParam("last_name") String last_name,
@@ -134,23 +128,34 @@ public class ControllerCustomers {
         return "Ok!";
     }
 
-    //TODO: добавить к Маше
-    @RequestMapping(value = "getState")
-    public String getState(@RequestParam("id_user") int id_user) {
-        return customersService.getUserState(id_user);
+
+    @GetMapping("/newCust")
+    String newCust() {
+        Date d = new Date(2018, 11, 12);
+        customersService.insertNewCustomer("masha",
+                "DFff", "werftrds", "fghj@ff",
+                "wedfrgtyhj", "234567", true, d, 1);
+
+        try {
+            EmailClient.sendAsHtml("dashkova_m@inbox.ru",
+                    "MoviesMT",
+                    "<h2>Welcome to our site:)</h2><p>You are registered in MoviesMT!</p>");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return "connected";
     }
 
-    //TODO: добавить к Маше
-    @RequestMapping(value = "setState")
-    public void setState(@RequestParam("id_user") int id_user,
-                         @RequestParam("id_film") int id_film) {
-        customersService.setStateToUser(id_user, id_film);
+    private static CustomersEntity customer = null;
+    private static CustomersEntity customerDemo = null;
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity auth(@RequestParam("username") String username,
+                               @RequestParam("password") String password) {
+        customerDemo = customersService.findByLog(username);
+        if (customersService.aunt(username, password)) return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 
-    //TODO: добавить ограничения
-    @RequestMapping(value = "verification")
-    public void verification(@RequestParam("id_actor") int id_actor) {
-        customersService.updateLevelAccessForActor(id_actor);
-    }
 
 }

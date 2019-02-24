@@ -77,6 +77,7 @@ public class CustomersEntity {
 
     @Basic
     @Column(name = "img", insertable = false, updatable = false)
+
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -290,4 +291,5 @@ public class CustomersEntity {
     public void setVerifications(Collection<VerificationEntity> verificationsById) {
         this.verifications = verificationsById;
     }
+
 }

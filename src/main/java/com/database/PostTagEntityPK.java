@@ -18,6 +18,7 @@ public class PostTagEntityPK implements Serializable {
         this.idPost = idPost;
     }
 
+
     @Column(name = "id_tag", nullable = false, insertable = false, updatable = false)
     @Id
     public int getIdTag() {

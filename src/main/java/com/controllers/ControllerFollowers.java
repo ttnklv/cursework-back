@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ControllerFollowers {
-//test
+
     private final FollowerService followerService;
 
     @Autowired

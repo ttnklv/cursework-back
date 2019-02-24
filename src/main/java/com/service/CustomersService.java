@@ -105,7 +105,8 @@ public class CustomersService {
         }
     }
 
-    public void scoreForFilm(int idCust, int idFilm, float score) {
+
+    public void scoreForFilm(int idCust, int idFilm, float score){
         ScoreFilmEntity sf = new ScoreFilmEntity();
         sf.setIdFilm(idFilm);
         sf.setIdUserUs(idCust);
@@ -113,8 +114,9 @@ public class CustomersService {
         scoreFilmRepository.save(sf);
     }
 
-    public void scoreForAnalyst(int idCust, int idAnalyst, float score) {
-        ScoreAnalystEntity sa = new ScoreAnalystEntity();
+
+    public void scoreForAnalyst(int idCust, int idAnalyst, float score){
+        ScoreAnalystEntity sa =  new ScoreAnalystEntity();
         sa.setIdAnalyst(idAnalyst);
         sa.setIdUserUs(idCust);
         sa.setScore(score);
@@ -129,7 +131,7 @@ public class CustomersService {
         scoreActorRepository.save(sa);
     }
 
-    public void scoreForStudio(int idCust, int idStudio, float score) {
+    public void scoreForStudio(int idCust, int idStudio, float score){
         ScoreStudioEntity ss = new ScoreStudioEntity();
         ss.setIdStudio(idStudio);
         ss.setIdUserUs(idCust);
@@ -140,7 +142,6 @@ public class CustomersService {
     public void insertNewCustomer(String name, String login, String
             pIurl, String email, String pass, String mobile, Boolean rep,
                                   Date date, int level) {
-
         CustomersEntity newCust = new CustomersEntity();
         newCust.setName(name);
         newCust.setLogin(login);
@@ -155,7 +156,20 @@ public class CustomersService {
 
     }
 
-    public boolean auntification(String log, String pass) {
+
+    public boolean aunt(String log, String pass){
+        if (customersRepository.findLogPas(log, pass) == null) return false;
+        return true;
+    }
+
+
+    public CustomersEntity findByLog(String log){
+        return customersRepository.findByLogin(log);
+    }
+
+    public CustomersEntity findById(int id){return  customersRepository.findById(id);}
+
+    public boolean auntification(String log, String pass){
         if (customersRepository.findLogPas(log, pass) == null) return false;
         return true;
     }
@@ -204,4 +218,5 @@ public class CustomersService {
             return null;
         }
     }
+
 }

@@ -9,7 +9,7 @@ import java.util.Collection;
 @Table(name = "post", schema = "public", catalog = "postgres")
 public class PostEntity {
     private Integer id;
-    private byte[] img;
+    private String img;
     private Date createDate;
     private String body;
     private Integer userUsOwnerId;
@@ -17,22 +17,23 @@ public class PostEntity {
     private Collection<PostTagEntity> postTags;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "img", nullable = true)
-    public byte[] getImg() {
+    @Column(name = "img", nullable = true, length = -1)
+    public String getImg() {
         return img;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -74,7 +75,6 @@ public class PostEntity {
         PostEntity that = (PostEntity) o;
 
         if (id != that.id) return false;
-        if (!Arrays.equals(img, that.img)) return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (body != null ? !body.equals(that.body) : that.body != null) return false;
         if (userUsOwnerId != null ? !userUsOwnerId.equals(that.userUsOwnerId) : that.userUsOwnerId != null)
@@ -86,7 +86,6 @@ public class PostEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + Arrays.hashCode(img);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (body != null ? body.hashCode() : 0);
         result = 31 * result + (userUsOwnerId != null ? userUsOwnerId.hashCode() : 0);

@@ -53,30 +53,31 @@ public class ComplaintService {
         return allComplains;
     }
 
-    public String saveNewComplaint() {
+    public void saveNewComplaint(String body, int idCustomer) {
         ComplaintEntity complaintEntity = new ComplaintEntity();
-        complaintEntity.setBody("Мне не понравился фильм, который появился у меня в ленте, поэтому я обиделся.");
-        complaintEntity.setIdCustomers(1);
-        try {
-            repository.save(complaintEntity);
-            return "Your complaint saved";
-        } catch (NullPointerException ex) {
-            return null;
-        }
+        complaintEntity.setBody(body);
+        complaintEntity.setIdCustomers(idCustomer);
+        repository.save(complaintEntity);
+
+    }
+
+    //TODO answer
+    public void answer(int id, String body){
+//        ComplaintEntity complaint = repository.findById(id);
+//        complaint.setAnswer(body);
+        repository.updateComplaint(body, id);
     }
 
     //TODO : удалние жалобы, если она рассмотрена
+    public void deleteComplaint(int id) {
+        ComplaintEntity complaintEntity = repository.findById(id);
+        if (complaintEntity.getChecker()) repository.delete(complaintEntity);
+    }
 
     //TOdo: вывести тольок актуальные жалобы сделала флаг
-
-//    public void deletComplaint(long id){
-//
-//repository.deleteById(id);
-//    }
-//
-//    public LinkedList<ComplaintEntity> currentComplaint(){
-//        //вот здесь выборка непроверенных
-//        LinkedList<ComplaintEntity> list = repository.dateSelect();
-//        return list;
-//    }
+    public LinkedList<ComplaintEntity> currentComplaint() {
+        //вот здесь выборка непроверенных
+        LinkedList<ComplaintEntity> list = repository.dateSelect();
+        return list;
+    }
 }

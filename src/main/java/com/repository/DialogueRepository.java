@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+
 public interface DialogueRepository extends JpaRepository<DialogueEntity, Long> {
 
     @Query(value = "select d from  DialogueEntity d where d.id = :id")
