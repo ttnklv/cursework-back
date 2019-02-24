@@ -116,9 +116,9 @@ public class ControllerCustomers {
                           @RequestParam("herf") String href,
                           @RequestParam("mid") String mid) {
 
-            customersService.registrationWithSocialNetwork(StringEscapeUtils.unescapeHtml(first_name),
-                    StringEscapeUtils.unescapeHtml(last_name),
-                    href, mid);
+        customersService.registrationWithSocialNetwork(StringEscapeUtils.unescapeHtml(first_name),
+                StringEscapeUtils.unescapeHtml(last_name),
+                href, mid);
 
 
         return "Ok!";
@@ -136,15 +136,21 @@ public class ControllerCustomers {
 
     //TODO: добавить к Маше
     @RequestMapping(value = "getState")
-    public String getState(@RequestParam("id_user") int id_user){
+    public String getState(@RequestParam("id_user") int id_user) {
         return customersService.getUserState(id_user);
     }
 
     //TODO: добавить к Маше
     @RequestMapping(value = "setState")
     public void setState(@RequestParam("id_user") int id_user,
-                         @RequestParam("id_film") int id_film){
+                         @RequestParam("id_film") int id_film) {
         customersService.setStateToUser(id_user, id_film);
+    }
+
+    //TODO: добавить ограничения
+    @RequestMapping(value = "verification")
+    public void verification(@RequestParam("id_actor") int id_actor) {
+        customersService.updateLevelAccessForActor(id_actor);
     }
 
 }

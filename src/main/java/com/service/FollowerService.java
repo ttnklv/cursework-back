@@ -98,8 +98,8 @@ public class FollowerService {
                     if(follower.getIdCustomers() == id_customer)  subscribeToTheStudios2.add(follower.getStudios().getCustomers());
             }
             for (CustomersEntity studioEntityForFollowers : subscribeToTheStudios2) {
-                imgAndName = "Name: " + studioEntityForFollowers.getName()
-                        + "Photo: " + Arrays.toString(studioEntityForFollowers.getImg()) + "   ";
+                imgAndName = "Name: " + studioEntityForFollowers.getName();
+//                        + "Photo: " + Arrays.toString(studioEntityForFollowers.getImg()) + "   ";
             }
             return imgAndName;
         } catch (NullPointerException ex) {
@@ -117,8 +117,8 @@ public class FollowerService {
                 if(follower.getIdCustomers() == id_customer)  subscribeToTheActors2.add(follower.getActors().getCustomerActor());
             }
             for (CustomersEntity actorEntityForFollowers : subscribeToTheActors2) {
-                imgAndName = "Name: " + actorEntityForFollowers.getName()
-                        + "Photo: " + Arrays.toString(actorEntityForFollowers.getImg()) + "   ";
+                imgAndName = "Name: " + actorEntityForFollowers.getName();
+//                        + "Photo: " + Arrays.toString(actorEntityForFollowers.getImg()) + "   ";
             }
             return imgAndName;
         } catch (NullPointerException ex) {
@@ -136,8 +136,8 @@ public class FollowerService {
                 if(follower.getIdCustomers() == id_customer)  subscribeToTheAnalyst2.add(follower.getAnalysts().getCustomersAnalyst());
             }
             for (CustomersEntity actorEntityForFollowers : subscribeToTheAnalyst2) {
-                imgAndName = "Name: " + actorEntityForFollowers.getName()
-                        + "Photo: " + Arrays.toString(actorEntityForFollowers.getImg()) + "   ";
+                imgAndName = "Name: " + actorEntityForFollowers.getName();
+//                        + "Photo: " + Arrays.toString(actorEntityForFollowers.getImg()) + "   ";
             }
             return imgAndName;
         } catch (NullPointerException ex) {

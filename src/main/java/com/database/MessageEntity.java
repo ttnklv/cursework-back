@@ -68,6 +68,7 @@ public class MessageEntity {
     }
 
     @Basic
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dialogue", nullable = true, insertable = false, updatable = false)
     public Integer getIdDialogue() {
         return idDialogue;

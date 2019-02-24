@@ -77,10 +77,10 @@ public class CustomersService {
     }
 
     public String updateImg() {
-        byte[] img = {1, 2, 3, 4, 5, 6};
+        String img = "";
         try {
             customersRepository.findCustomersEntityById(1).setImg(img);
-            customersRepository.updateUserSetIMGForId(img, 1);
+//            customersRepository.updateUserSetIMGForId(img, 1);
             return "IMG was changed.";
         } catch (NullPointerException ex) {
             return null;
@@ -196,4 +196,12 @@ public class CustomersService {
         return customersRepository.findCustomersEntityById(id_user).getState();
     }
 
+    public String updateLevelAccessForActor(int id_actor) {
+        try {
+            customersRepository.updateUserSetLevelAccessForId(1, id_actor);
+            return "Level_Access was changed.";
+        } catch (NullPointerException ex) {
+            return null;
+        }
+    }
 }

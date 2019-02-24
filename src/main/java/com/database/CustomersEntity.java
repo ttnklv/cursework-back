@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "customers", schema = "public", catalog = "postgres")
@@ -20,7 +21,7 @@ public class CustomersEntity {
     private boolean reputation;
     private Date lastAccess;
     private int levelAccess;
-    private byte[] img;
+    private String img;
     private ActorEntity actors;
     private AnalystEntity analysts;
     private Collection<ChatEntity> chats;
@@ -75,7 +76,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "img", nullable = true, length = -1)
+    @Column(name = "img", insertable = false, updatable = false)
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -146,11 +147,11 @@ public class CustomersEntity {
 
     @Basic
     @Column(name = "img", nullable = true)
-    public byte[] getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -161,18 +162,17 @@ public class CustomersEntity {
 
         CustomersEntity that = (CustomersEntity) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (reputation != that.reputation) return false;
         if (levelAccess != that.levelAccess) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        if (profileImageUrl != null ? !profileImageUrl.equals(that.profileImageUrl) : that.profileImageUrl != null)
+        if (!Objects.equals(name, that.name)) return false;
+        if (!Objects.equals(login, that.login)) return false;
+        if (!Objects.equals(profileImageUrl, that.profileImageUrl))
             return false;
-        if (emailHash != null ? !emailHash.equals(that.emailHash) : that.emailHash != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (mobNumber != null ? !mobNumber.equals(that.mobNumber) : that.mobNumber != null) return false;
-        if (lastAccess != null ? !lastAccess.equals(that.lastAccess) : that.lastAccess != null) return false;
-        if (!Arrays.equals(img, that.img)) return false;
+        if (!Objects.equals(emailHash, that.emailHash)) return false;
+        if (!Objects.equals(password, that.password)) return false;
+        if (!Objects.equals(mobNumber, that.mobNumber)) return false;
+        if (!Objects.equals(lastAccess, that.lastAccess)) return false;
 
         return true;
     }
@@ -189,7 +189,6 @@ public class CustomersEntity {
         result = 31 * result + (reputation ? 1 : 0);
         result = 31 * result + (lastAccess != null ? lastAccess.hashCode() : 0);
         result = 31 * result + levelAccess;
-        result = 31 * result + Arrays.hashCode(img);
         return result;
     }
 
